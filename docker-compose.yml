@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  djangorestsample:
-    image: djangorestsample
+  projectmanager:
+    image: projectmanager
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -10,20 +10,29 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
+    networks:
+      - shared_network
+    environment:
+      DB_USER: AJL420
+      DB_PASSWORD: comme
+      DB_NAME: project_man
+      DB_HOST: db
+      DB_PORT: 5432
+    depends_on:
+      - db
 
   db:
     image: postgres
     restart: always
-    # set shared memory limit when using docker-compose
-    shm_size: 128mb
+    shm_size: 1024mb
     ports:
       - "5432:5432"
-    # or set shared memory limit when deploy via swarm stack
-    #volumes:
-    #  - type: tmpfs
-    #    target: /dev/shm
-    #    tmpfs:
-    #      size: 134217728 # 128*2^20 bytes = 128Mb
     environment:
       POSTGRES_USER: AJL420
       POSTGRES_PASSWORD: comme
+      POSTGRES_DB: project_man
+    networks:
+      - shared_network
+
+networks:
+  shared_network:
