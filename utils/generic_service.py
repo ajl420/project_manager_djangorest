@@ -1,6 +1,6 @@
 from rest_framework.serializers import Serializer
 from utils.exception.data_exception import ValidationErrors, ObjectDoesNotExist
-from utils.generic_repo import GenericRepo, SimpleCreateRepo, FinderRepo, UpdateRepo, SimpleDeleteRepo
+from utils.generic_repo import GenericRepo, SimpleCreateRepo, FinderRepo, UpdateRepo, SimpleDeleteRepo, CrudRepo
 
 
 class LocalDataService:
@@ -58,3 +58,8 @@ class MixinDeleterService(LocalDataService):
         deleted_count = self.repo.delete_from_id(pk=pk)[0]
         if deleted_count < 1:
             raise self.not_found_exception
+
+class MixinCrudService(MixinUpdaterService, MixinDeleterService, MixinFinderEntityService, MixinCreateEntityService):
+    repo: CrudRepo
+    def __init__(self, repo: CrudRepo, *args, **kwargs):
+        super().__init__(repo, *args, **kwargs)
