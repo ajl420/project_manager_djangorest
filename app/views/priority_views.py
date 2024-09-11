@@ -4,7 +4,7 @@ from app.exceptions.data_exceptions import PriorityDoesNotExist
 from app.serializers.task_serializer import PrioritySerializer
 from app.services.priority_services import PriorityServices
 from utils.exception.data_exception import ValidationErrors
-from utils.rest_response.errors import ValidationErrorsResponse, NotFountResponse
+from utils.rest_response.errors import ValidationErrorsResponse, NotFoundResponse
 from utils.rest_response.success import SerializerResponse, SerializerCreatedResponse, SimpleMessageResponse
 
 
@@ -32,7 +32,7 @@ class PriorityViewSet(viewsets.ViewSet):
             self.priority_services.delete_by_id(priority_id)
             return SimpleMessageResponse(message="Supprime avec success!")
         except PriorityDoesNotExist as e:
-            return NotFountResponse(e)
+            return NotFoundResponse(e)
 
     def update(self, request, priority_id):
         try:
@@ -45,7 +45,7 @@ class PriorityViewSet(viewsets.ViewSet):
         except ValidationErrors as e:
             return ValidationErrorsResponse(e)
         except PriorityDoesNotExist as e:
-            return NotFountResponse(e)
+            return NotFoundResponse(e)
 
     def switch_level(self, request):
         try:
@@ -55,6 +55,6 @@ class PriorityViewSet(viewsets.ViewSet):
             self.priority_services.switch_level(first_priority_level, second_priority_level)
             return SimpleMessageResponse(message="Donnee mis a jour!")
         except PriorityDoesNotExist as e:
-            return NotFountResponse(e)
+            return NotFoundResponse(e)
 
 

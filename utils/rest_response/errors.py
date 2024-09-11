@@ -11,7 +11,7 @@ class BadRequestResponse(Response):
             *args, **kwargs
         )
 
-class NotFountResponse(Response):
+class NotFoundResponse(Response):
     def __init__(self, exception: ObjectDoesNotExist, *args, **kwargs):
         super().__init__(
             data={"error":str(exception)},

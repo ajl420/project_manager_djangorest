@@ -14,3 +14,7 @@ class ValidationError(Exception):
 class ValidationErrors(MultiException):
     def __init__(self, errors: dict):
         super().__init__(errors)
+
+class AttributeNameError(Exception):
+    def __init__(self, attribute: str):
+        super().__init__(f"L'attribut {attribute} n'existe pas")

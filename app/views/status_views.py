@@ -4,8 +4,8 @@ from app.exceptions.data_exceptions import StatusDoesNotExist
 from app.serializers.task_serializer import StatusSerializer
 from app.services.status_services import StatusServices
 from utils.exception.data_exception import ValidationErrors
-from utils.rest_response.errors import ValidationErrorsResponse, NotFountResponse
-from utils.rest_response.success import SimpleSuccessResponse, SerializerResponse, SerializerCreatedResponse, \
+from utils.rest_response.errors import ValidationErrorsResponse, NotFoundResponse
+from utils.rest_response.success import SerializerResponse, SerializerCreatedResponse, \
     SimpleMessageResponse
 
 
@@ -33,7 +33,7 @@ class StatusViewSet(viewsets.ViewSet):
             self.status_services.delete_by_id(status_id)
             return SimpleMessageResponse(message="Supprime avec success!")
         except StatusDoesNotExist as e:
-            return NotFountResponse(e)
+            return NotFoundResponse(e)
 
     def update(self, request, status_id):
         try:
@@ -46,4 +46,4 @@ class StatusViewSet(viewsets.ViewSet):
         except ValidationErrors as e:
             return ValidationErrorsResponse(e)
         except StatusDoesNotExist as e:
-            return NotFountResponse(e)
+            return NotFoundResponse(e)
