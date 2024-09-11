@@ -16,3 +16,4 @@ class Task(models.Model):
     priority = models.ForeignKey(Priority, on_delete=models.CASCADE)
     status = models.ForeignKey(Status, on_delete=models.CASCADE)
     description = models.TextField()
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
