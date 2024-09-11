@@ -32,6 +32,12 @@ class FinderRepo(GenericRepo):
     def find_by_id(self, pk):
         return self.queryset.get(pk=pk)
 
-class CrudRepo(SimpleDeleteRepo,UpdateRepo,FinderRepo,SimpleCreateRepo):
+class GetAllRepo(GenericRepo):
+    def __init__(self, model: Type[models.Model]):
+        super().__init__(model)
+    def get_all(self):
+        return self.queryset.all()
+
+class CrudRepo(SimpleDeleteRepo,UpdateRepo,FinderRepo,SimpleCreateRepo,GetAllRepo):
     def __init__(self, model: Type[models.Model]):
         super().__init__(model)
