@@ -19,7 +19,8 @@ from django.urls import path, include
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
-from app.models import Task
+from app.models import Task, Project, Priority, Status
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Episyche Technologies",
@@ -30,6 +31,9 @@ schema_view = get_schema_view(
 )
 
 admin.site.register(Task)
+admin.site.register(Project)
+admin.site.register(Priority)
+admin.site.register(Status)
 urlpatterns = [
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0),name='schema-swagger-ui'),
     path('api/', include("app.urls"),name='api'),
