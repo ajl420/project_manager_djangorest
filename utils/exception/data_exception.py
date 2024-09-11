@@ -18,3 +18,7 @@ class ValidationErrors(MultiException):
 class AttributeNameError(Exception):
     def __init__(self, attribute: str):
         super().__init__(f"L'attribut {attribute} n'existe pas")
+
+class EntityNotRelatedError(Exception):
+    def __init__(self, obj_name_1, obj_name_2):
+        super().__init__(f"Ce/cette {obj_name_1} n'appartient pas a ce/cette {obj_name_2}")
