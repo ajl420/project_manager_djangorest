@@ -5,7 +5,7 @@ class Status(models.Model):
 
 class Priority(models.Model):
     label = models.CharField(max_length=100, null=False)
-    level = models.IntegerField(null=False)
+    level = models.AutoField(null=False, primary_key=True)
 
 class Project(models.Model):
     name = models.CharField(max_length=100, null=False)

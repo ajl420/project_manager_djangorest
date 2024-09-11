@@ -5,9 +5,8 @@ class StatusSerializer(serializers.Serializer):
     label = serializers.CharField()
 
 class PrioritySerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
     label = serializers.CharField()
-    level = serializers.IntegerField()
+    level = serializers.IntegerField(required=False, read_only=True)
 
 class TaskSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
